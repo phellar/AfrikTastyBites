@@ -1,0 +1,136 @@
+
+
+  
+/* Container */
+#hero-section {
+    /* position: relative; */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+    /* background-image: url('../assets/dark-bg.jpg'); */
+  }
+  
+  /* Hero content */
+  .hero-content {
+    /* position: relative; */
+    z-index: 2;
+    max-width: 700px;
+    margin: 0 auto;
+    /* padding: 2rem; */
+    padding-top: 10%;
+}
+
+/* Hero title */
+.hero-title {
+    font-size: 4rem;
+    font-weight: 500;
+    color: #111;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  
+  .hero-title .hero-word {
+    display: inline-block;
+  }
+  
+  .highlight {
+    display: inline-block;
+    color: #ac0121;
+    font-weight: 600;
+    font-style: italic;
+  }
+  
+  /* Subtext */
+  .hero-subtext {
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 500px;
+    margin: 1.5rem auto;
+    line-height: 1.6;
+  }
+  
+  /* Buttons */
+  .hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .btn {
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  
+  .btn.primary {
+    background-color: #ac0121;
+    color: #fff;
+    border: none;
+  }
+  
+  .btn.primary:hover {
+    background-color: #e65c00;
+  }
+  
+  .btn.secondary {
+    background: transparent;
+    color: #ac0121;
+    border: 2px solid #ac0121;
+  }
+  
+  .btn.secondary:hover {
+    background-color: #ff6600;
+    color: #fff;
+  }
+  
+  /* Hero image */
+  .hero-image-container {
+    /* position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0; */
+    width: 100vw
+  }
+  
+  .hero-image {
+    width: 100%;
+    height: 75vh;
+    object-fit: cover;
+    opacity: 0.95;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 2.8rem;
+    }
+
+  .hero-content {
+    z-index: 2;
+    max-width: 700px;
+    margin: 0 auto;
+    padding-top: 35%;
+  }
+  
+    .hero-subtext {
+      font-size: 1rem;
+    }
+  
+    .hero-image {
+      height: 60vh;
+    }
+
+      /* Hero image */
+  .hero-image-container {
+    width: 500px
+  }
+  }
+  
