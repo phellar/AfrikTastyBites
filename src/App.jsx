@@ -1,19 +1,35 @@
-import React from 'react';
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import HeroSection from './Components/Hero'
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./Pages/Home";
+import AdminLogin from "./Pages/AdminLogin";
+import DashboardLayout from "./Components/DashboardLayout";
+import DashboardHome from "./Pages/DashboardHome";
+import Orders from "./Pages/Order";
+import AdminProduct from "./Pages/AdminProduct";
+import ProtectedRoutes from "./Components/ProtectedRoutes";
 
 function App() {
- 
-             
-
   return (
-    <>
-      <HeroSection/>
-    </>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/admin-login" element={<AdminLogin />} />
+
+        <Route
+          path="/admin-dashboard/*"
+          element={
+            <ProtectedRoutes>
+              <DashboardLayout />
+            </ProtectedRoutes>
+          }
+        >
+          <Route index element={<DashboardHome />} />
+          <Route path="orders" element={<Orders />} />
+          <Route path="admin-products" element={<AdminProduct />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

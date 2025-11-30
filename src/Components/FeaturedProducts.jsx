@@ -1,23 +1,38 @@
 // FeaturedProducts.jsx
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FiHeart, FiShoppingCart } from "react-icons/fi";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useCart } from "../Contexts/CartContext"; 
+
 
 gsap.registerPlugin(ScrollTrigger);
-
-const products = [
-  { id: 1, name: "Red Velvet Cake", price: "$22.99", image: "https://images.unsplash.com/photo-1605475128026-9f6e0ab63aa1?auto=format&fit=crop&w=800&q=60" },
-  { id: 2, name: "Strawberry Delight", price: "$18.50", image: "https://images.unsplash.com/photo-1605478043618-38b8eb35ad96?auto=format&fit=crop&w=800&q=60" },
-  { id: 3, name: "Chocolate Fudge", price: "$25.00", image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=60" },
-  { id: 4, name: "Vanilla Slice", price: "$17.99", image: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=800&q=60" },
-  { id: 5, name: "Cheese Cupcake", price: "$19.99", image: "https://images.unsplash.com/photo-1599785209707-28b3f5fa8861?auto=format&fit=crop&w=800&q=60" },
-  { id: 6, name: "Fruit Tart", price: "$23.49", image: "https://images.unsplash.com/photo-1606813902911-d4b30b52c823?auto=format&fit=crop&w=800&q=60" },
-];
 
 const FeaturedProducts = () => {
   const sectionRef = useRef(null);
   const cardsRef = useRef([]);
+  const [products, setProducts] = useState([]);
+  const { addToCart } = useCart();
+
+
+  useEffect(() => {
+    // Fetch 6 products from backend
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch(`${import.meta.env.VITE_BACKEND_END_API_URL}/products`);
+        const data = await res.json();
+  
+        // If paginated, items are inside data.data
+        const productsArray = Array.isArray(data) ? data : data.data;
+  
+        setProducts(productsArray.slice(0, 6)); 
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+    fetchProducts();
+  }, []);
+  
 
   useEffect(() => {
     cardsRef.current.forEach((card, i) => {
@@ -38,12 +53,12 @@ const FeaturedProducts = () => {
         }
       );
     });
-  }, []);
+  }, [products]);
 
   return (
     <section ref={sectionRef} className="py-20 bg-white">
       <div className="max-w-6xl mx-auto px-6 text-center">
-        <h2 className="text-3xl font-semibold text-gray-900 mb-10">
+        <h2 className="text-4xl font-semibold text-gray-900 mb-10">
           Featured <span className="text-[#ac0121]">Products</span>
         </h2>
 
@@ -56,26 +71,42 @@ const FeaturedProducts = () => {
             >
               <img
                 src={product.image}
-                alt={product.name}
+                alt={product.product_name}
                 className="w-full h-56 object-cover"
               />
               <div className="p-5 text-left">
                 <h3 className="text-lg font-medium text-gray-800">
-                  {product.name}
+                  {product.product_name}
                 </h3>
-                <p className="text-gray-500 mt-1">{product.price}</p>
+                <p className="text-gray-500 mt-1">${product.price}</p>
                 <div className="flex items-center justify-between mt-4">
-                  <button className="text-[#ac0121] border border-[#ac0121] px-3 py-1.5 rounded-lg text-sm hover:bg-[#ac0121] hover:text-white transition">
+                <button
+                  onClick={() => addToCart(product)}
+                  className="text-[#ac0121] border border-[#ac0121] px-3 py-1.5 rounded-lg text-sm hover:bg-[#ac0121] hover:text-white transition"
+                >
+                  <div className="flex justify-between">
+                    <FiShoppingCart size={18} className="mr-2" />
                     Add to Cart
-                  </button>
+                  </div>
+                </button>
+
                   <div className="flex space-x-3 text-gray-600">
                     <FiHeart size={18} className="cursor-pointer hover:text-[#ac0121]" />
-                    <FiShoppingCart size={18} className="cursor-pointer hover:text-[#ac0121]" />
                   </div>
                 </div>
               </div>
             </div>
           ))}
+        </div>
+
+        {/* View All Products Button */}
+        <div className="mt-10">
+          <a
+            href="/products"
+            className="inline-block px-6 py-3 bg-[#ac0121] text-white font-semibold rounded-lg hover:bg-[#8a0018] transition"
+          >
+            View All Products
+          </a>
         </div>
       </div>
     </section>

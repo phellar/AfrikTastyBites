@@ -77,7 +77,6 @@ const HeroSection = () => {
 
   return (
     <>
-      <Header />
       <section id="hero-section">
         <div className="hero-content">
           <div className="hero-text-container">
@@ -115,11 +114,9 @@ const HeroSection = () => {
         </div>
 
         <div className="hero-image-container">
-          <img ref={imageRef} src={Heroimage} alt="Main Dish" className="hero-image" />
+          {/* <img ref={imageRef} src={Heroimage} alt="Main Dish" className="hero-image" /> */}
         </div>
       </section>
-
-      <AboutOurFood />
     </>
   );
 };
