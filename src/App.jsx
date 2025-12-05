@@ -7,12 +7,14 @@ import DashboardHome from "./Pages/DashboardHome";
 import Orders from "./Pages/Order";
 import AdminProduct from "./Pages/AdminProduct";
 import ProtectedRoutes from "./Components/ProtectedRoutes";
+import CheckOut from "./Pages/CheckOut";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/checkout" element={<CheckOut />} />
         <Route path="/admin-login" element={<AdminLogin />} />
 
         <Route

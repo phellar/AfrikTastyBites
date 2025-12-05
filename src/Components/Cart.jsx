@@ -1,7 +1,9 @@
 import React from "react";
 import { useCart } from "../Contexts/CartContext";
-import { RiDeleteBin6Line } from "react-icons/ri"; // delete icon
-import { FiX } from "react-icons/fi"; // close icon
+import { RiDeleteBin6Line } from "react-icons/ri"; 
+import { FiX } from "react-icons/fi"; 
+import { Link } from "react-router-dom";
+
 
 const Cart = ({ onClose }) => {
   const { items = [], totalQty, totalAmount, removeFromCart } = useCart();
@@ -67,13 +69,13 @@ const Cart = ({ onClose }) => {
             <p className="font-semibold text-lg">
               Total Amount: <span className="text-[#ac0121]">{formatCurrency(totalAmount)}</span>
             </p>
+            <Link
+  to="/checkout"
+  className="block mt-5 bg-[#ac0121] text-white text-center py-3 rounded-lg font-medium hover:bg-[#8a0018] transition"
+>
+  Proceed to Checkout
+</Link>
 
-            <a
-              href="/checkout"
-              className="block mt-5 bg-[#ac0121] text-white text-center py-3 rounded-lg font-medium hover:bg-[#8a0018] transition"
-            >
-              Proceed to Checkout
-            </a>
           </div>
         </>
       )}
