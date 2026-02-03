@@ -78,6 +78,7 @@ const HeroSection = () => {
   return (
     <>
       <section id="hero-section">
+        <div className="overlay">
         <div className="hero-content">
           <div className="hero-text-container">
             <h3 ref={textRef} className="hero-title">
@@ -102,8 +103,8 @@ const HeroSection = () => {
             </h3>
 
             <p ref={paragraphRef} className="hero-subtext">
-              Taste the difference — freshly baked, locally made, and perfectly
-              delivered to your door.
+              Taste the difference! freshly baked, locally made, and perfectly
+              delivered to your doorstep.
             </p>
 
             <div ref={btnRef} className="hero-buttons">
@@ -115,6 +116,7 @@ const HeroSection = () => {
 
         <div className="hero-image-container">
           {/* <img ref={imageRef} src={Heroimage} alt="Main Dish" className="hero-image" /> */}
+        </div>
         </div>
       </section>
     </>

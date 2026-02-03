@@ -8,7 +8,9 @@ import Orders from "./Pages/Order";
 import AdminProduct from "./Pages/AdminProduct";
 import ProtectedRoutes from "./Components/ProtectedRoutes";
 import CheckOut from "./Pages/CheckOut";
-import PaymentSuccess from "./pages/PaymentSuccess"
+// import PaymentSuccess from "./pages/PaymentSuccess"
+import Menu from "./Pages/Menu";
+
 
 function App() {
   return (
@@ -16,7 +18,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/checkout" element={<CheckOut />} />
-        <Route path="/payment-success" element={<PaymentSuccess />} />
+        <Route path="/menu" element={<Menu />} />
+
+        {/* <Route path="/payment-success" element={<PaymentSuccess />} /> */}
         <Route path="/admin-login" element={<AdminLogin />} />
 
         <Route

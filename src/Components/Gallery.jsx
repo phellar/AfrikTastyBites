@@ -1,112 +1,99 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import gsap from "gsap";
+import { FiArrowUpRight } from "react-icons/fi";
+
+const productData = {
+  food: [
+    { title: "Jollof Rice", img: "/assets/jollof.jpg" },
+    { title: "Ewa Agoyin", img: "/assets/ewa.jpg" },
+    { title: "Fried Plantain", img: "/assets/dodo.jpg" },
+    { title: "Beef Suya", img: "/assets/suya.jpg" },
+  ],
+  cake: [
+    { title: "Wedding Tiers", img: "/assets/wedding.jpg" },
+    { title: "Vanilla Bean", img: "/assets/vanilla.jpg" },
+    { title: "Chocolate Ganache", img: "/assets/chocolate.jpg" },
+    { title: "Red Velvet", img: "/assets/velvet.jpg" },
+  ],
+  pastry: [
+    { title: "Meat Pie", img: "/assets/meatpie.jpg" },
+    { title: "Sausage Roll", img: "/assets/sausage.jpg" },
+    { title: "Scotch Egg", img: "/assets/scotchegg.jpg" },
+    { title: "Chicken Pie", img: "/assets/chickenpie.jpg" },
+  ],
+};
 
 const GallerySection = () => {
   const [activeTab, setActiveTab] = useState("food");
-  const [showAll, setShowAll] = useState(false);
 
-  const brandColor = "#ac0121";
-
-  const gallery = {
-    food: [
-      "https://images.unsplash.com/photo-1606851094462-0b9a64e64f2a",
-      "https://images.unsplash.com/photo-1625944229603-8b1e8a26d90e",
-      "https://images.unsplash.com/photo-1551218808-94e220e084d2",
-      "https://images.unsplash.com/photo-1633437269679-b1f7d4b25a1a",
-      "https://images.unsplash.com/photo-1553163147-622ab57be1c7",
-      "https://images.unsplash.com/photo-1617196034796-73d1dc38353d",
-      "https://images.unsplash.com/photo-1525755662778-989d0524087e",
-      "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
-      "https://images.unsplash.com/photo-1578985545062-69928b1d9587",
-      "https://images.unsplash.com/photo-1625938145277-4ecbdf4e90a3",
-      "https://images.unsplash.com/photo-1633437269679-b1f7d4b25a1a",
-      "https://images.unsplash.com/photo-1525755662778-989d0524087e",
-    ],
-    cake: [
-      "https://images.unsplash.com/photo-1606312619070-df3a8c9923d4",
-      "https://images.unsplash.com/photo-1578985545062-69928b1d9587",
-      "https://images.unsplash.com/photo-1599785209707-28f0efdc88ce",
-      "https://images.unsplash.com/photo-1621996346565-6f7d1df08c1b",
-      "https://images.unsplash.com/photo-1601972599720-84f423a57d72",
-      "https://images.unsplash.com/photo-1559622214-f8c3e6b7f52d",
-      "https://images.unsplash.com/photo-1551024601-bec78aea704b",
-      "https://images.unsplash.com/photo-1586190848861-99aa4a171e90",
-      "https://images.unsplash.com/photo-1606312619070-df3a8c9923d4",
-      "https://images.unsplash.com/photo-1601972599720-84f423a57d72",
-      "https://images.unsplash.com/photo-1621996346565-6f7d1df08c1b",
-    ],
-    pastry: [
-      "https://images.unsplash.com/photo-1588195537643-2f950c417cb0",
-      "https://images.unsplash.com/photo-1509440159596-0249088772ff",
-      "https://images.unsplash.com/photo-1588600878108-578307a3cc9b",
-      "https://images.unsplash.com/photo-1551218808-94e220e084d2",
-      "https://images.unsplash.com/photo-1625938145277-4ecbdf4e90a3",
-      "https://images.unsplash.com/photo-1600101591730-19ce10c63f17",
-      "https://images.unsplash.com/photo-1504674900247-0877df9cc836",
-      "https://images.unsplash.com/photo-1617196034796-73d1dc38353d",
-      "https://images.unsplash.com/photo-1590080875838-6614d478504b",
-      "https://images.unsplash.com/photo-1621996346565-6f7d1df08c1b",
-      "https://images.unsplash.com/photo-1600101591730-19ce10c63f17",
-    ],
-  };
-
-  const images = gallery[activeTab];
-  const visibleImages = showAll ? images : images.slice(0, 10);
+  useEffect(() => {
+    gsap.fromTo(
+      ".gallery-card",
+      { opacity: 0, y: 15 },
+      { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: "sine.out" }
+    );
+  }, [activeTab]);
 
   return (
-    <section className="bg-black text-white py-16">
-      <div className="container mx-auto px-4 text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-10">
-          Our Delicious Gallery
-        </h2>
+    <section className="bg-white py-20 px-6 md:px-12 border-t border-gray-100">
+      <div className="max-w-6xl mx-auto">
+        
+        {/* Minimalist Heading */}
+        <div className="mb-16">
+          <h2 className="text-2xl md:text-3xl font-light tracking-tight text-gray-900">
+            Snapshot of our <span className="font-serif italic text-gray-400">products</span>
+          </h2>
+          <div className="h-[1px] w-12 bg-[#ac0121] mt-4"></div>
+        </div>
 
-        {/* Tabs */}
-        <div className="flex justify-center space-x-4 mb-10 flex-wrap">
-          {["food", "cake", "pastry"].map((tab) => (
+        {/* Navigation Tabs */}
+        <div className="flex gap-12 mb-12 border-b border-gray-50">
+          {Object.keys(productData).map((tab) => (
             <button
               key={tab}
-              onClick={() => {
-                setActiveTab(tab);
-                setShowAll(false);
-              }}
-              className={`px-6 py-2 rounded-full font-medium transition border ${
-                activeTab === tab
-                  ? "text-black"
-                  : "text-white border-gray-700 hover:bg-gray-800"
+              onClick={() => setActiveTab(tab)}
+              className={`pb-4 text-[10px] font-bold uppercase tracking-[0.3em] transition-all relative ${
+                activeTab === tab ? "text-gray-900" : "text-gray-300 hover:text-gray-500"
               }`}
-              style={
-                activeTab === tab
-                  ? { backgroundColor: brandColor, borderColor: brandColor }
-                  : {}
-              }
             >
-              {tab.charAt(0).toUpperCase() + tab.slice(1)}
+              {tab}
+              {activeTab === tab && (
+                <div className="absolute bottom-0 left-0 w-full h-[1.5px] bg-gray-900" />
+              )}
             </button>
           ))}
         </div>
 
-        {/* Masonry-style Gallery */}
-        <div className="columns-2 sm:columns-3 md:columns-4 lg:columns-5 gap-4 space-y-4 mb-10">
-          {visibleImages.map((img, index) => (
-            <div key={index} className="overflow-hidden rounded-lg break-inside-avoid">
-              <img
-                src={img + "?auto=format&fit=crop&w=800&q=80"}
-                alt={`${activeTab}-${index}`}
-                className="w-full mb-4 rounded-lg hover:scale-105 transition-transform duration-300 cursor-pointer"
-              />
+        {/* Product Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-gray-100 border border-gray-100">
+          {productData[activeTab].map((product, index) => (
+            <div 
+              key={index} 
+              className="gallery-card group bg-white p-4 transition-all duration-500 hover:bg-[#fafafa]"
+            >
+              <div className="aspect-[3/4] overflow-hidden bg-gray-50 mb-4">
+                <img
+                  src={product.img}
+                  alt={product.title}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+              </div>
+              
+              <div className="flex justify-between items-start pt-2">
+                <div>
+                  <p className="text-[9px] text-gray-400 font-bold uppercase tracking-widest mb-1">
+                    0{index + 1}
+                  </p>
+                  <h3 className="text-[11px] font-black uppercase tracking-wider text-gray-800">
+                    {product.title}
+                  </h3>
+                </div>
+                <FiArrowUpRight className="text-gray-300 group-hover:text-[#ac0121] transition-colors" size={16} />
+              </div>
             </div>
           ))}
         </div>
 
-        {/* Show More Button */}
-        {images.length > 10 && (
-          <button
-            onClick={() => setShowAll(!showAll)}
-            style={{ backgroundColor: brandColor }}
-            className="px-8 py-2 text-white font-semibold rounded-full hover:opacity-90 transition"
-          >
-            {showAll ? "Show Less" : "Show More"}
-          </button>
-        )}
       </div>
     </section>
   );

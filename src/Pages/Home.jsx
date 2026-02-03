@@ -9,12 +9,17 @@ import Footer from '../Components/Footer'
 import Gallery from '../Components/Gallery'
 import AboutUs from '../Components/AboutUs'
 import DeliveredTo from '../Components/DeliveredTo'
+import WhatsappBtn from '../Components/WhatsappBtn'
+import CookieConsent from '../Components/CookieConsent'
+
 
 const Home = () => {
   return (
     <>
         <Header />
         <Hero />
+        <CookieConsent/>
+        <WhatsappBtn />
         <FeaturedPrroducts />
         <AboutUs />
         <AboutOurFood />

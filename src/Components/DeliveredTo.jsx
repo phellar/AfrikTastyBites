@@ -1,44 +1,85 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { FiMapPin } from "react-icons/fi";
 
-// Replace with local or online flag URLs
+gsap.registerPlugin(ScrollTrigger);
+
 const provinces = [
-  { name: "Ontario", flag: "https://upload.wikimedia.org/wikipedia/commons/8/88/Flag_of_Ontario.svg" },
-  { name: "Quebec", flag: "https://upload.wikimedia.org/wikipedia/commons/5/5f/Flag_of_Quebec.svg" },
-  { name: "British Columbia", flag: "https://upload.wikimedia.org/wikipedia/commons/b/b8/Flag_of_British_Columbia.svg" },
-  { name: "Alberta", flag: "https://upload.wikimedia.org/wikipedia/commons/f/f5/Flag_of_Alberta.svg" },
-  { name: "Manitoba", flag: "https://upload.wikimedia.org/wikipedia/commons/c/c4/Flag_of_Manitoba.svg" },
-  { name: "Saskatchewan", flag: "https://upload.wikimedia.org/wikipedia/commons/b/bb/Flag_of_Saskatchewan.svg" },
-  { name: "Nova Scotia", flag: "https://upload.wikimedia.org/wikipedia/commons/c/cf/Flag_of_Nova_Scotia.svg" },
-  { name: "New Brunswick", flag: "https://upload.wikimedia.org/wikipedia/commons/f/fb/Flag_of_New_Brunswick.svg" },
-  { name: "Prince Edward Island", flag: "https://upload.wikimedia.org/wikipedia/commons/f/fb/Flag_of_Prince_Edward_Island.svg" },
-  { name: "Newfoundland and Labrador", flag: "https://upload.wikimedia.org/wikipedia/commons/d/dd/Flag_of_Newfoundland_and_Labrador.svg" },
-  { name: "Northwest Territories", flag: "https://upload.wikimedia.org/wikipedia/commons/c/cf/Flag_of_the_Northwest_Territories.svg" },
-  { name: "Yukon", flag: "https://upload.wikimedia.org/wikipedia/commons/6/6f/Flag_of_Yukon.svg" },
-  { name: "Nunavut", flag: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Flag_of_Nunavut.svg" },
+  "Ontario", "Quebec", "British Columbia", "Alberta", "Manitoba", 
+  "Saskatchewan", "Nova Scotia", "New Brunswick", "Prince Edward Island", 
+  "Newfoundland and Labrador", "Northwest Territories", "Yukon", "Nunavut"
 ];
 
 const DeliverToSection = () => {
-  return (
-    <section className="py-20 bg-black flex justify-center">
-      <div className="max-w-6xl w-full px-6 text-center">
-        <h2 className="text-4xl md:text-5xl font-semibold mb-12 text-white">
-        We deliver to anywhere in <span className="text-[#ac0121]">Canada</span>
-        </h2>
+  const sectionRef = useRef(null);
+  const itemsRef = useRef([]);
 
-        <div className="flex flex-wrap justify-center gap-4">
+  useEffect(() => {
+    gsap.fromTo(
+      itemsRef.current,
+      { opacity: 0, scale: 0.9, y: 20 },
+      {
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        stagger: 0.05,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 85%",
+        },
+      }
+    );
+  }, []);
+
+  return (
+    <section 
+      ref={sectionRef} 
+      className="relative py-24 bg-[#0a0a0a] overflow-hidden"
+    >
+      {/* Background Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#ac0121]/10 blur-[120px] rounded-full pointer-events-none" />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
+        {/* Header Block */}
+        <div className="mb-16">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#ac0121]/10 border border-[#ac0121]/20 mb-6">
+            <FiMapPin className="text-[#ac0121]" size={14} />
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#ac0121]">
+              Coast to Coast
+            </span>
+          </div>
+          <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tight mb-4">
+            Delivering across <span className="text-[#ac0121]">Canada</span>
+          </h2>
+          <p className="text-gray-500 max-w-xl mx-auto font-medium italic">
+            Bringing the taste of home to every province and territory.
+          </p>
+        </div>
+
+        {/* Province Grid */}
+        <div className="flex flex-wrap justify-center gap-3 md:gap-4 max-w-5xl mx-auto">
           {provinces.map((province, i) => (
             <div
               key={i}
-              className="flex items-center gap-3 bg-white rounded-lg px-4 py-2 shadow-md hover:scale-105 transition-transform duration-300"
+              ref={(el) => (itemsRef.current[i] = el)}
+              className="group flex items-center gap-3 bg-white/[0.03] backdrop-blur-md border border-white/[0.08] rounded-2xl px-6 py-4 transition-all duration-300 hover:bg-[#ac0121] hover:border-[#ac0121] hover:-translate-y-1 cursor-default"
             >
-              <img
-                src={province.flag}
-                alt={`${province.name} flag`}
-                className="w-8 h-8 object-contain rounded-sm"
-              />
-              <span className="text-black font-medium">{province.name}</span>
+              {/* Modern Dot instead of loud flags */}
+              <div className="w-2 h-2 rounded-full bg-[#ac0121] group-hover:bg-white transition-colors" />
+              
+              <span className="text-gray-300 font-bold text-xs uppercase tracking-widest group-hover:text-white transition-colors">
+                {province}
+              </span>
             </div>
           ))}
+        </div>
+
+        {/* Bottom Callout */}
+        <div className="mt-16 text-gray-600 text-[10px] font-black uppercase tracking-[0.4em]">
+          Next Day Delivery Available in Major Cities
         </div>
       </div>
     </section>
