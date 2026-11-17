@@ -24,7 +24,7 @@ const Home = () => {
         <AboutUs />
         <AboutOurFood />
         <DeliveredTo/>
-        {/* <Gallery /> */}
+        <Gallery />
         <CTA />
         <Footer />
     </>

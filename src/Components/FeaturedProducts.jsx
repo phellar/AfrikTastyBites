@@ -3,8 +3,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { FiHeart, FiShoppingCart } from "react-icons/fi";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useCart } from "../Contexts/CartContext"; 
-
+import { useCart } from "../Contexts/CartContext";
+import { productsData } from "../../data";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,28 +14,14 @@ const FeaturedProducts = () => {
   const [products, setProducts] = useState([]);
   const { addToCart } = useCart();
 
-
   useEffect(() => {
-    // Fetch 6 products from backend
-    const fetchProducts = async () => {
-      try {
-        const res = await fetch(`${import.meta.env.VITE_BACKEND_END_API_URL}/products`);
-        const data = await res.json();
-  
-        // If paginated, items are inside data.data
-        const productsArray = Array.isArray(data) ? data : data.data;
-  
-        setProducts(productsArray.slice(0, 6)); 
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
-    fetchProducts();
+    // Load the first 6 products from data.js
+    setProducts(productsData.slice(0, 6));
   }, []);
-  
 
   useEffect(() => {
     cardsRef.current.forEach((card, i) => {
+      if (!card) return;
       gsap.fromTo(
         card,
         { opacity: 0, y: 80 },
@@ -78,20 +64,23 @@ const FeaturedProducts = () => {
                 <h3 className="text-lg font-medium text-gray-800">
                   {product.product_name}
                 </h3>
-                <p className="text-gray-500 mt-1">${product.price}</p>
+                <p className="text-gray-500 mt-1">${product.price.toFixed(2)}</p>
                 <div className="flex items-center justify-between mt-4">
-                <button
-                  onClick={() => addToCart(product)}
-                  className="text-[#ac0121] border border-[#ac0121] px-3 py-1.5 rounded-lg text-sm hover:bg-[#ac0121] hover:text-white transition"
-                >
-                  <div className="flex justify-between">
-                    <FiShoppingCart size={18} className="mr-2" />
-                    Add to Cart
-                  </div>
-                </button>
+                  <button
+                    onClick={() => addToCart(product)}
+                    className="text-[#ac0121] border border-[#ac0121] px-3 py-1.5 rounded-lg text-sm hover:bg-[#ac0121] hover:text-white transition"
+                  >
+                    <div className="flex justify-between items-center">
+                      <FiShoppingCart size={18} className="mr-2" />
+                      Add to Cart
+                    </div>
+                  </button>
 
                   <div className="flex space-x-3 text-gray-600">
-                    <FiHeart size={18} className="cursor-pointer hover:text-[#ac0121]" />
+                    <FiHeart
+                      size={18}
+                      className="cursor-pointer hover:text-[#ac0121]"
+                    />
                   </div>
                 </div>
               </div>

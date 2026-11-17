@@ -76,7 +76,7 @@ const AboutUs = () => {
         >
           <div ref={accentRef} className="h-1 bg-[#ac0121] mb-8" />
           
-          <h2 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight mb-8 tracking-tight">
+          <h2 className="text-4xl md:text-6xl font-medium text-gray-900 leading-tight mb-8 tracking-tight">
             The heart behind <br />
             <span className="text-[#ac0121]">AfrikTastyBites</span>
           </h2>
@@ -101,7 +101,7 @@ const AboutUs = () => {
             </p>
           </div>
 
-          <button className="mt-12 group flex items-center gap-4 text-sm font-black uppercase tracking-[0.2em] text-[#ac0121] hover:text-black transition-colors">
+          <button className="mt-12 group flex items-center gap-4 text-sm font-black  tracking-[0.2em] text-[#ac0121] hover:text-black transition-colors">
             Learn More About Our Journey 
             <span className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center group-hover:bg-[#ac0121] group-hover:text-white transition-all">
               <FiArrowRight />

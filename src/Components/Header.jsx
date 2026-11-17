@@ -47,9 +47,9 @@ const Header = () => {
           
           <div className="flex items-center cursor-pointer group">
             <img src={Logo} alt="Afrik Logo" className="w-10 md:w-12" />
-            <span className={`ml-3 text-lg font-black uppercase tracking-tighter transition-colors duration-500 ${textColor}`}>
+            {/* <span className={`ml-3 text-lg font-black uppercase tracking-tighter transition-colors duration-500 ${textColor}`}>
               AfrikTasty<span className="text-[#ac0121]">Bites</span>
-            </span>
+            </span> */}
           </div>
 
           <ul className="hidden md:flex items-center space-x-10">
@@ -58,7 +58,7 @@ const Header = () => {
                 <NavLink 
                   to={link.path}
                   className={({ isActive }) => `
-                    text-[11px] font-black uppercase tracking-[0.2em] transition-colors duration-300
+                    text-[11px] font-medium tracking-[0.2em] transition-colors duration-300
                     ${isActive && link.path === '/menu' ? "text-[#ac0121]" : scrolled ? "text-gray-500 hover:text-[#ac0121]" : "text-white/80 hover:text-white"}
                   `}
                 >

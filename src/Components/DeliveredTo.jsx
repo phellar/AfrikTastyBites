@@ -45,13 +45,13 @@ const DeliverToSection = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
         {/* Header Block */}
         <div className="mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#ac0121]/10 border border-[#ac0121]/20 mb-6">
-            <FiMapPin className="text-[#ac0121]" size={14} />
-            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-[#ac0121]">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-[#ac0121]/20 mb-6">
+            <FiMapPin className="text-white" size={14} />
+            <span className="text-[10px] font-white  tracking-[0.3em] text-white">
               Coast to Coast
             </span>
           </div>
-          <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tight mb-4">
+          <h2 className="text-4xl md:text-6xl font-medium text-white tracking-tight mb-4">
             Delivering across <span className="text-[#ac0121]">Canada</span>
           </h2>
           <p className="text-gray-500 max-w-xl mx-auto font-medium italic">
@@ -70,7 +70,7 @@ const DeliverToSection = () => {
               {/* Modern Dot instead of loud flags */}
               <div className="w-2 h-2 rounded-full bg-[#ac0121] group-hover:bg-white transition-colors" />
               
-              <span className="text-gray-300 font-bold text-xs uppercase tracking-widest group-hover:text-white transition-colors">
+              <span className="text-gray-300 font-bold text-xs tracking-widest group-hover:text-white transition-colors">
                 {province}
               </span>
             </div>
@@ -78,9 +78,9 @@ const DeliverToSection = () => {
         </div>
 
         {/* Bottom Callout */}
-        <div className="mt-16 text-gray-600 text-[10px] font-black uppercase tracking-[0.4em]">
+        {/* <div className="mt-16 text-gray-600 text-[10px] font-black  tracking-[0.4em]">
           Next Day Delivery Available in Major Cities
-        </div>
+        </div> */}
       </div>
     </section>
   );

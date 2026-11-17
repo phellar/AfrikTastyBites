@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FiLock, FiMail, FiArrowRight } from "react-icons/fi";
+import { FiLock, FiMail, FiArrowRight, FiEye, FiEyeOff } from "react-icons/fi";
 import Logo from "../assets/Logo.png";
 import JollofPack from "../assets/full-chops.jpeg";
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
-
-  const brandColor = "#ac0121";
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -38,63 +37,82 @@ const AdminLogin = () => {
   };
 
   return (
-    <div className="min-h-screen flex bg-white font-sans">
+    <div className="min-h-screen flex bg-gray-50/50 font-sans text-gray-900">
       
-      {/* LEFT SIDE: Clean Login Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 md:p-16">
+      {/* LEFT SIDE: Modern Login Form */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 md:p-16 bg-white">
         <div className="w-full max-w-md">
-          <div className="mb-8">
-            <img src={Logo} alt="Logo" className="w-16 mb-6" />
-            <h2 className="text-3xl font-black text-gray-900 tracking-tight mb-2">Admin Login</h2>
-            <p className="text-gray-400 text-xs font-medium uppercase tracking-[0.2em]">Secure Access Portal</p>
+          <div className="mb-10">
+            <img src={Logo} alt="AfrikTastyBites Logo" className="w-14 h-14 object-contain mb-6" />
+            <h2 className="text-3xl font-bold text-gray-900 tracking-tight mb-2">
+              Welcome back
+            </h2>
+            <p className="text-gray-500 text-sm">
+              Sign in to access the AfrikTastyBites admin portal.
+            </p>
           </div>
 
           {error && (
-            <div className="mb-6 p-4 bg-red-50 border-l-4 border-[#ac0121] text-[#ac0121] text-xs font-bold uppercase tracking-wider">
-              {error}
+            <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-100 text-[#ac0121] text-sm font-medium flex items-center gap-2">
+              <span>{error}</span>
             </div>
           )}
 
-          <form onSubmit={handleLogin} className="space-y-6">
-            <div className="space-y-2">
-              <label className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 ml-1">Email Address</label>
+          <form onSubmit={handleLogin} className="space-y-5">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                Email address
+              </label>
               <div className="relative">
-                <FiMail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300" />
+                <FiMail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-12 pr-4 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:bg-white focus:border-[#ac0121] transition-all outline-none text-sm font-medium"
-                  placeholder="Enter your email"
+                  className="w-full pl-11 pr-4 py-3 bg-white border border-gray-200 rounded-xl text-sm text-gray-900 placeholder-gray-400 focus:border-[#ac0121] focus:ring-4 focus:ring-[#ac0121]/10 transition-all outline-none"
+                  placeholder="admin@afriktastybites.com"
                   required
                 />
               </div>
             </div>
 
-            <div className="space-y-2">
-              <label className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 ml-1">Password</label>
+            <div>
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="block text-sm font-medium text-gray-700">
+                  Password
+                </label>
+              </div>
               <div className="relative">
-                <FiLock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300" />
+                <FiLock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-12 pr-4 py-4 bg-gray-50 border border-gray-100 rounded-2xl focus:bg-white focus:border-[#ac0121] transition-all outline-none text-sm font-medium"
+                  className="w-full pl-11 pr-11 py-3 bg-white border border-gray-200 rounded-xl text-sm text-gray-900 placeholder-gray-400 focus:border-[#ac0121] focus:ring-4 focus:ring-[#ac0121]/10 transition-all outline-none"
                   placeholder="••••••••"
                   required
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                  aria-label="Toggle password visibility"
+                >
+                  {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+                </button>
               </div>
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              style={{ backgroundColor: brandColor }}
-              className="w-full py-5 rounded-2xl text-white text-[11px] font-black uppercase tracking-[0.3em] flex items-center justify-center gap-3 hover:opacity-90 transition-all shadow-xl shadow-red-200/40 disabled:opacity-50"
+              className="w-full py-3.5 px-4 mt-2 rounded-xl bg-[#ac0121] hover:bg-[#8f011b] active:scale-[0.99] text-white text-sm font-semibold flex items-center justify-center gap-2 transition-all shadow-lg shadow-[#ac0121]/20 disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              {loading ? "Authenticating..." : (
+              {loading ? (
+                "Signing in..."
+              ) : (
                 <>
-                  Enter Dashboard <FiArrowRight size={18} />
+                  Sign in to dashboard <FiArrowRight size={18} />
                 </>
               )}
             </button>
@@ -102,25 +120,27 @@ const AdminLogin = () => {
         </div>
       </div>
 
-      {/* RIGHT SIDE: Food Background with Dark Overlay */}
+      {/* RIGHT SIDE: Food Background with Modern Gradient Overlay */}
       <div className="hidden lg:flex w-1/2 relative overflow-hidden bg-gray-900">
         <img 
           src={JollofPack}
-          alt="Food" 
-          className="absolute inset-0 w-full h-full object-cover" 
+          alt="AfrikTastyBites Jollof Pack" 
+          className="absolute inset-0 w-full h-full object-cover scale-105" 
         />
-        {/* Darkened Overlay */}
-        <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]"></div>
+        {/* Smooth Dark Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/50 to-black/30 backdrop-blur-[1px]"></div>
         
-        {/* Content over the food background */}
+        {/* Brand Content */}
         <div className="relative z-10 w-full h-full flex flex-col items-center justify-center text-center p-12">
-            <h1 className="text-white text-5xl font-black uppercase tracking-tighter leading-none mb-4">
+          <div className="max-w-md flex flex-col items-center">
+            <h1 className="text-white text-4xl xl:text-5xl font-semibold tracking-tight leading-tight mb-4">
               AfrikTasty<span className="text-[#ac0121]">Bites</span>
             </h1>
-            <div className="w-12 h-[2px] bg-[#ac0121] mb-6"></div>
-            <p className="text-gray-300 text-sm font-medium tracking-wide max-w-xs">
-             Management systems for AfrikTastyBites.
+            <div className="w-12 h-1 rounded-full bg-[#ac0121] mb-5"></div>
+            <p className="text-gray-200 text-base font-normal leading-relaxed">
+              Manage orders, update your menu, and track daily kitchen operations in one place.
             </p>
+          </div>
         </div>
       </div>
 
